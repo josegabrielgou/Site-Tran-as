@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Agenda de Tranças | Studio Tranças</title>
+  <meta name="description" content="Agendamento de clientes para tranças. Veja o catálogo (em breve) e marque seu horário pelo WhatsApp." />
+  <style>
+    :root{
+      --bg:#0f0f10;
+      --card:#17171a;
+      --muted:#9aa0a6;
+      --text:#f7f7f8;
+      --brand:#7c3aed; /* roxo */
+      --brand-2:#a78bfa;
+      --ok:#10b981;
+      --danger:#ef4444;
+      --radius:18px;
+      --shadow:0 10px 30px rgba(0,0,0,.35);
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0;
+      background:radial-gradient(1200px 600px at 20% -10%, rgba(124,58,237,.25), transparent 60%),
+                 radial-gradient(1000px 600px at 120% 10%, rgba(167,139,250,.2), transparent 60%),
+                 var(--bg);
+      color:var(--text);
+      font:16px/1.5 system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, "Apple Color Emoji", "Segoe UI Emoji";
+    }
+    a{color:inherit}
+    .wrap{max-width:1100px;margin:0 auto;padding:24px}
+
+    /* Header */
+    header{position:sticky;top:0;backdrop-filter:saturate(180%) blur(10px);background:rgba(15,15,16,.6);z-index:50;border-bottom:1px solid rgba(255,255,255,.06)}
+    .nav{display:flex;gap:16px;align-items:center;justify-content:space-between;padding:14px 0}
+    .logo{display:flex;gap:10px;align-items:center;font-weight:800;letter-spacing:.3px}
+    .logo .badge{width:36px;height:36px;border-radius:10px;background:linear-gradient(135deg,var(--brand),var(--brand-2));display:grid;place-items:center;box-shadow:var(--shadow)}
+    .nav a.btn{padding:10px 14px;border-radius:12px;background:linear-gradient(135deg,var(--brand),var(--brand-2));text-decoration:none;font-weight:600}
+
+    /* Hero */
+    .hero{display:grid;grid-template-columns:1.2fr .8fr;gap:28px;align-items:center;padding:30px 0 10px}
+    .hero h1{font-size:clamp(26px,3.2vw,42px);margin:0 0 10px}
+    .hero p{color:var(--muted);margin:0 0 18px}
+    .hero .card{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);padding:18px;border-radius:var(--radius)}
+
+    /* Grid sections */
+    .grid{display:grid;grid-template-columns:repeat(12,1fr);gap:18px}
+    .col-7{grid-column:span 7}
+    .col-5{grid-column:span 5}
+    .col-6{grid-column:span 6}
+    .col-12{grid-column:1/-1}
+
+    /* Cards */
+    .card{background:var(--card);border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow)}
+    .card h2{margin:0 0 10px;font-size:22px}
+    .sub{font-size:14px;color:var(--muted)}
+
+    /* Form */
+    form{display:grid;gap:14px}
+    .row{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+    label{font-size:14px;color:#cfd2d7}
+    input,select,textarea{
+      width:100%;padding:12px 12px;border-radius:12px;border:1px solid rgba(255,255,255,.08);
+      background:#0f0f12;color:var(--text);outline:none
+    }
+    textarea{min-height:100px;resize:vertical}
+    .hint{font-size:12px;color:var(--muted)}
+    .actions{display:flex;gap:12px;flex-wrap:wrap}
+    .btn{
+      display:inline-flex;align-items:center;gap:8px;border:0;padding:12px 16px;border-radius:12px;cursor:pointer;font-weight:700
+    }
+    .btn-primary{background:linear-gradient(135deg,var(--brand),var(--brand-2));color:white}
+    .btn-secondary{background:transparent;border:1px solid rgba(255,255,255,.12);color:var(--text)}
+
+    /* Catalog placeholder */
+    .catalog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:14px}
+    .ph{border:1px dashed rgba(255,255,255,.18);border-radius:16px;padding:18px;display:grid;gap:8px;place-items:center;min-height:180px;color:#cfcfe8;background:rgba(124,58,237,.06)}
+    .ph small{color:#d6d6f7;opacity:.7}
+
+    /* FAQ */
+    details{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:14px;padding:14px}
+    summary{cursor:pointer;font-weight:700}
+    details p{margin:.6rem 0 0;color:var(--muted)}
+
+    /* Footer */
+    footer{margin:30px 0 40px;color:var(--muted);text-align:center}
+
+    /* Responsive */
+    @media (max-width:900px){
+      .hero{grid-template-columns:1fr}
+      .col-7,.col-5,.col-6{grid-column:1/-1}
+      .row{grid-template-columns:1fr}
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <div class="wrap nav">
+      <div class="logo">
+        <span class="badge">💫</span>
+        <span>Nathalia Tranças</span>
+      </div>
+      <nav style="display:flex;gap:8px;align-items:center">
+        <a class="btn btn-secondary" href="#catalogo">Catálogo</a>
+        <a class="btn btn-secondary" href="#faq">Dúvidas</a>
+        <a class="btn btn" style="background:transparent;border:1px solid rgba(255,255,255,.12)" href="#contato">Contato</a>
+        <a class="btn btn-primary" href="#agendar">Agendar agora</a>
+      </nav>
+    </div>
+  </header>
+
+  <main class="wrap">
+    <!-- Hero -->
+    <section class="hero">
+      <div>
+        <h1>Agenda aberta para tranças • faça seu horário 💇🏾‍♀️</h1>
+        <p>Escolha o estilo, dia e horário. Confirmamos tudo pelo WhatsApp. Atendemos com hora marcada.</p>
+        <div class="card" role="note">
+          <strong>Horários:</strong> seg–sáb, 09:00–19:00 • <strong>Endereço:</strong> informar no contato ✨
+        </div>
+      </div>
+      <div class="card">
+        <h2 id="agendar">Agende seu horário</h2>
+        <p class="sub">Preencha os dados abaixo e clique em <b>Enviar pelo WhatsApp</b>.</p>
+        <form id="form-agenda">
+          <div class="row">
+            <div>
+              <label for="nome">Seu nome*</label>
+              <input id="nome" name="nome" required placeholder="Ex: Ana Souza" />
+            </div>
+            <div>
+              <label for="whats">WhatsApp*</label>
+              <input id="whats" name="whats" required placeholder="(81) 9 9999-9999" />
+              <div class="hint">Use DDD. Ex: 81999999999</div>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="data">Data desejada*</label>
+              <input type="date" id="data" name="data" required />
+            </div>
+            <div>
+              <label for="hora">Hora*</label>
+              <input type="time" id="hora" name="hora" required />
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="servico">Tipo de trança*</label>
+              <select id="servico" name="servico" required>
+                <option value="" disabled selected>Selecione…</option>
+                <option>Box Braids</option>
+                <option>Nagô/Cornrows</option>
+                <option>Twists</option>
+                <option>Fulani</option>
+                <option>Goddess/Boho</option>
+                <option>Infantil</option>
+                <option>Outro (descrever)</option>
+              </select>
+            </div>
+            <div>
+              <label for="tamanho">Comprimento do cabelo</label>
+              <select id="tamanho" name="tamanho">
+                <option value="" selected>—</option>
+                <option>Curto</option>
+                <option>Médio</option>
+                <option>Longo</option>
+                <option>Alongamento/Aplicação</option>
+              </select>
+            </div>
+          </div>
+          <div class="row">
+            <div>
+              <label for="extras">Extras</label>
+              <select id="extras" name="extras">
+                <option value="" selected>—</option>
+                <option>Com acessórios</option>
+                <option>Com baby hair</option>
+                <option>Tratamento pré trança</option>
+              </select>
+            </div>
+            <div>
+              <label for="referencia">Link de referência (opcional)</label>
+              <input id="referencia" name="referencia" placeholder="URL de foto/IG" />
+            </div>
+          </div>
+          <div>
+            <label for="obs">Observações</label>
+            <textarea id="obs" name="obs" placeholder="Ex: quero tranças médias na altura do ombro…"></textarea>
+          </div>
+          <div class="actions">
+            <button type="button" class="btn btn-primary" id="btn-whatsapp">Enviar pelo WhatsApp</button>
+            <button type="reset" class="btn btn-secondary">Limpar</button>
+          </div>
+          <div class="hint">Ao enviar, abriremos uma conversa no WhatsApp com seu pedido formatado. Responderemos confirmando disponibilidade e valores.</div>
+        </form>
+      </div>
+    </section>
+
+    <!-- Catálogo em aberto -->
+    <section id="catalogo" class="grid" style="margin-top:24px">
+      <div class="col-7 card">
+        <h2>Catálogo (em breve)</h2>
+        <p class="sub">Deixe esta seção para adicionar fotos e valores quando quiser. Por enquanto, mostramos espaços reservados.</p>
+        <div class="catalog-grid" aria-label="Espaços do catálogo">
+          <div class="ph"><strong>Box Braids</strong><small>adicione fotos aqui</small></div>
+          <div class="ph"><strong>Cornrows</strong><small>adicione fotos aqui</small></div>
+          <div class="ph"><strong>Twists</strong><small>adicione fotos aqui</small></div>
+          <div class="ph"><strong>Fulani</strong><small>adicione fotos aqui</small></div>
+          <div class="ph"><strong>Infantil</strong><small>adicione fotos aqui</small></div>
+          <div class="ph"><strong>Boho</strong><small>adicione fotos aqui</small></div>
+        </div>
+      </div>
+      <aside class="col-5 card">
+        <h2>Como adicionar seu catálogo</h2>
+        <ol style="margin:0 0 8px 18px; padding:0; line-height:1.6">
+          <li>Troque cada bloco acima por uma <code>&lt;figure&gt;</code> com <code>&lt;img&gt;</code> e legenda.</li>
+          <li>Opcional: coloque preços ou "a partir de".</li>
+          <li>Mantenha imagens leves (até ~200KB) para carregar rápido.</li>
+        </ol>
+        <p class="sub">Este site já é responsivo e pronto para celular.</p>
+      </aside>
+    </section>
+
+    <!-- Info + FAQ -->
+    <section class="grid" style="margin-top:24px" id="faq">
+      <div class="col-6 card">
+        <h2>Informações importantes</h2>
+        <ul style="margin:0 0 0 18px; line-height:1.7">
+          <li>Chegue com cabelo limpo e seco (a menos que tenha marcado tratamento).</li>
+          <li>Reservas são confirmadas mediante sinal (informado no WhatsApp).</li>
+          <li>Tolerância de 15 min de atraso.</li>
+          <li>Cancelamentos com 24h de antecedência.</li>
+        </ul>
+      </div>
+      <div class="col-6 card">
+        <h2>Perguntas frequentes</h2>
+        <div style="display:grid;gap:10px">
+          <details>
+            <summary>Quanto tempo leva?</summary>
+            <p>Depende do estilo e tamanho. Em média de 2 a 6 horas. Confirmamos no agendamento.</p>
+          </details>
+          <details>
+            <summary>Vocês fornecem cabelo sintético?</summary>
+            <p>Sim, sob consulta. Informe no campo de observações.</p>
+          </details>
+          <details>
+            <summary>Formas de pagamento</summary>
+            <p>Pix, débito e crédito. Sinal para reserva.</p>
+          </details>
+        </div>
+      </div>
+    </section>
+
+    <!-- Contato -->
+    <section id="contato" class="card" style="margin-top:24px">
+      <h2>Contato</h2>
+      <p class="sub">Atendemos por WhatsApp e Instagram.</p>
+      <div class="actions">
+        <a class="btn btn-primary" id="zap-footer" href="#">WhatsApp</a>
+        <a class="btn btn-secondary" href="#" aria-disabled="true">Instagram (adicionar)</a>
+      </div>
+    </section>
+
+    <footer>
+      <p>© <span id="ano"></span> Studio Tranças — feito com carinho ✨</p>
+    </footer>
+  </main>
+
+  <!-- JS opcional só para montar o link do WhatsApp -->
+  <script>
+    const PHONE = '5581999999999'; // 👈🏽 troque pelo seu número com DDI (55) + DDD
+
+    function montarMensagem(){
+      const f = document.getElementById('form-agenda');
+      const dados = {
+        nome: f.nome.value.trim(),
+        whats: f.whats.value.trim(),
+        data: f.data.value,
+        hora: f.hora.value,
+        servico: f.servico.value,
+        tamanho: f.tamanho.value || '—',
+        extras: f.extras.value || '—',
+        referencia: f.referencia.value || '—',
+        obs: f.obs.value || '—'
+      };
+      const linhas = [
+        '👋 Olá! Quero agendar tranças:',
+        `• Nome: ${dados.nome}`,
+        `• Meu WhatsApp: ${dados.whats}`,
+        `• Data e hora: ${dados.data} às ${dados.hora}`,
+        `• Tipo: ${dados.servico}`,
+        `• Cabelo: ${dados.tamanho}`,
+        `• Extras: ${dados.extras}`,
+        `• Referência: ${dados.referencia}`,
+        `• Observações: ${dados.obs}`
+      ];
+      return encodeURIComponent(linhas.join('\n'));
+    }
+
+    function abrirWhatsApp(){
+      const f = document.getElementById('form-agenda');
+      if(!f.reportValidity()) return; // usa validação nativa do browser
+      const msg = montarMensagem();
+      const url = `https://wa.me/${PHONE}?text=${msg}`;
+      window.open(url, '_blank');
+    }
+
+    document.getElementById('btn-whatsapp').addEventListener('click', abrirWhatsApp);
+
+    // Footer ano e botão de contato usam o mesmo número
+    document.getElementById('ano').textContent = new Date().getFullYear();
+    document.getElementById('zap-footer').setAttribute('href', `https://wa.me/${PHONE}`);
+  </script>
+</body>
+</html>
